@@ -1,0 +1,7 @@
+{
+  "name": "Virtual Cart",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
