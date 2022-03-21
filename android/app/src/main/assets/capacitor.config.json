@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "Virtual Cart",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
