@@ -11,12 +11,14 @@ export class Tab1Page {
 
   constructor(private barcodeScanner: BarcodeScanner, public alertController: AlertController) {}
 
-  public listNumber: number = 0;
-  public itemString: string = '';
-  items: string[];
+  public items = [
+    {name: 'Coca Cola', barcode: 123451, price: 4.95},
+    {name: 'Pepsi', barcode: 74523451, price: 4.55}
+  ];
 
   async scan()
   {
+    this.addItem('Test', 4367652, 2.96);
     this.barcodeScanner.scan().then(async (barcodeData) => {
       /*const alert = await this.alertController.create({
         header: 'Kod kreskowy',
@@ -25,8 +27,8 @@ export class Tab1Page {
       await alert.present();*/
       if(barcodeData.text != '')
       {
-        this.listNumber++;
-        this.addItemToList(barcodeData.text);
+        this.addItem('Test', Number(barcodeData.text), 2.99);
+        this.addItem('Test', 4367652, 2.97);
       }
     }, async (err)=>{
       const alert = await this.alertController.create({
@@ -37,30 +39,8 @@ export class Tab1Page {
     })
   }
 
-  addItemToList(item: string)
+  addItem(name: string, barcode: number, price: number)
   {
-
-    this.itemString += `
-      <ion-item>
-        <ion-avatar item-start>
-          <img width="50" height="50" src="assets\\img\\item.png">
-        </ion-avatar>
-        <ion-label>${item}</ion-label>
-        <ion-note item-end>3:43 pm</ion-note>
-      </ion-item>
-      <br>
-    `;
-
-    return this.itemString;
+    this.items.push({name: name, barcode: barcode, price: price});
   }
-
-   generateList() {
-    return `
-    <ion-list>
-      ${this.itemString}
-    </ion-list>
-  `;
-  }
-
-
 }

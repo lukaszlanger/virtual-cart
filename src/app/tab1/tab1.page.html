@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      🛒 Wirtualny koszyk
+      Wirtualny koszyk
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,14 +13,35 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-fab horizontal="end" vertical="top" slot="fixed" edge>
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
     <ion-fab-button (click)="scan()">
       <ion-icon name="barcode"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-  <ion-list [innerHTML]="itemString">
-    
+  <ion-list *ngFor="let i of items">
+    <ion-item-sliding>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img width="50" height="50" src="assets\\icon\\icons8-barcode-48_yellow.png">
+        </ion-avatar>
+        <ion-label>
+          <h2>{{i.name}}</h2>
+          <p>Kod kreskowy: {{i.barcode}}</p>
+        </ion-label>
+        <ion-note slot="end">{{i.price}} zł</ion-note>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="--ion-color-dark"><img width="28" height="28" src="assets\\icon\\icons8-close-48.png"></ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <!-- <ion-item-sliding>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger">Usuń</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding> -->
   </ion-list>
 
 </ion-content>
