@@ -20,11 +20,6 @@ export class Tab1Page {
   {
     this.addItem('Test', 4367652, 2.96);
     this.barcodeScanner.scan().then(async (barcodeData) => {
-      /*const alert = await this.alertController.create({
-        header: 'Kod kreskowy',
-        message: barcodeData.text,
-      });
-      await alert.present();*/
       if(barcodeData.text != '')
       {
         this.addItem('Test', Number(barcodeData.text), 2.99);
@@ -42,5 +37,33 @@ export class Tab1Page {
   addItem(name: string, barcode: number, price: number)
   {
     this.items.push({name: name, barcode: barcode, price: price});
+  }
+
+  async deleteItem(barcode: number) {
+    const alert = await this.alertController.create({
+      cssClass: 'alert',
+      header: 'Usuń',
+      message: 'Czy na pewno chcesz usunąć ten przedmiot z koszyka?',
+      buttons: [
+        {
+          text: 'Tak',
+          role: 'confirm',
+          id: 'confirm-button',
+          handler: () => {
+            this.items.forEach((value,index)=>{
+              if(value.barcode==barcode) this.items.splice(index,1);
+            })
+          }
+        }, {
+          text: 'Nie',
+          id: 'cancel-button',
+          handler: () => {
+            console.log('Usuwanie anulowane');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

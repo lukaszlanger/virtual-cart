@@ -14,7 +14,14 @@ export class Tab3Page {
     if(event.detail.checked)
       document.body.setAttribute('color-theme','dark');
     else
-    document.body.setAttribute('color-theme','light');
+      document.body.setAttribute('color-theme','light');
+  }
+
+  onToggleColor(event)
+  {
+    if(event.detail.ckecked)
+    
+    document.rootElement.setAttribute('color-group','green');
   }
 
 }
