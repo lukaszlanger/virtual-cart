@@ -9,6 +9,8 @@ export class Tab2Page {
 
   constructor() {}
 
+  public name: string;
+
   public itemsToBuy: {type: string, name: string, description: string, count: number}[] = [
     {type: 'drink', name: 'Coca Cola', description: 'Napój w butelce', count: 3},
     {type: 'fastfood', name: 'Pizza Hawajska', description: 'Fast Food', count: 4}
@@ -39,5 +41,9 @@ export class Tab2Page {
   buyAgain(type: string, name: string, description: string, count: number) {
     this.itemsToBuy.push({type, name, description, count});
     this.deleteItemToBuy(name);
+  }
+
+  addToBuy(name: string) {
+    this.itemsToBuy.push({type: 'default', name, description: '', count: 1});
   }
 }

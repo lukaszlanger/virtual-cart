@@ -7,6 +7,9 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { ShopItemsService } from '../services/shop-items.service';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -14,9 +17,13 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    Tab1PageRoutingModule
+    Tab1PageRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   declarations: [Tab1Page],
-  providers: [BarcodeScanner]
+  providers: [
+    BarcodeScanner,
+    ShopItemsService]
 })
 export class Tab1PageModule {}

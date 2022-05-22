@@ -15,6 +15,11 @@
       
     </ion-toolbar>
   </ion-header>
+
+  <ion-card>
+    <ion-input placeholder="Dodaj produkt" [(ngModel)]="name" id="new-item" (change)="addToBuy(value)"></ion-input>
+  </ion-card>
+
   <ion-card>
     <ion-list lines="none">
       <ion-list-header>Do kupienia</ion-list-header>

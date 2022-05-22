@@ -1,45 +1,27 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { AlertController } from '@ionic/angular';
+import { ValueAccessor } from '@ionic/angular/directives/control-value-accessors/value-accessor';
+import { ShopItem } from '../models/shop-item';
+import { ShopItemsService } from '../services/shop-items.service';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
+export class Tab1Page implements OnInit {
 
-  constructor(private barcodeScanner: BarcodeScanner, public alertController: AlertController) {}
+  constructor(private barcodeScanner: BarcodeScanner, public alertController: AlertController, private shopItemsService: ShopItemsService, private http: HttpClient) {}
 
-  public items = [
-    {name: 'Coca Cola', barcode: 123451, price: 4.95},
-    {name: 'Pepsi', barcode: 74523451, price: 4.55}
-  ];
+  public items: ShopItem[];
 
-  async scan()
-  {
-    this.addItem('Test', 4367652, 2.96);
-    this.barcodeScanner.scan().then(async (barcodeData) => {
-      if(barcodeData.text != '')
-      {
-        this.addItem('Test', Number(barcodeData.text), 2.99);
-        this.addItem('Test', 4367652, 2.97);
-      }
-    }, async (err)=>{
-      const alert = await this.alertController.create({
-        header: 'Wystąpił błąd',
-        message: JSON.stringify(err),
-      });
-      await alert.present();
-    })
+  ngOnInit(): void {
+    this.shopItemsService.getShopItems().subscribe((data: ShopItem[]) => this.items = data);
   }
 
-  addItem(name: string, barcode: number, price: number)
-  {
-    this.items.push({name: name, barcode: barcode, price: price});
-  }
-
-  async deleteItem(barcode: number) {
+  async deleteItem(item: ShopItem) {
     const alert = await this.alertController.create({
       cssClass: 'alert',
       header: 'Usuń',
@@ -50,15 +32,14 @@ export class Tab1Page {
           role: 'confirm',
           id: 'confirm-button',
           handler: () => {
-            this.items.forEach((value,index)=>{
-              if(value.barcode==barcode) this.items.splice(index,1);
-            })
+            item.ItemScanned = false;
+            this.shopItemsService.putShopItem(item).subscribe(data => console.log('Item deleted!'));
           }
         }, {
           text: 'Nie',
           id: 'cancel-button',
           handler: () => {
-            console.log('Usuwanie anulowane');
+            console.log('Delete cancelled');
           }
         }
       ]
@@ -66,4 +47,51 @@ export class Tab1Page {
 
     await alert.present();
   }
+
+  scanned(item: ShopItem) {
+    item.ItemScanned = true;
+    this.shopItemsService.putShopItem(item).subscribe(data => console.log('Item scanned!'));
+  }
+
+  getShopItem(id: number)
+  {
+    console.log(this.shopItemsService.getShopItem(id).subscribe());
+  }
+
+  async scan() {
+    this.barcodeScanner.scan().then(async (barcodeData) => {
+      if(barcodeData.text != '')
+      {
+        const item = this.items.find(i => i.ItemBarcode == barcodeData.text);
+        if(item)
+          this.scanned(item);
+        else
+          alert("dodaj item");
+      }
+      }, async (err)=>{
+        const alert = await this.alertController.create({
+        header: 'Wystąpił błąd :(',
+        message: JSON.stringify(err),
+      });
+        await alert.present();
+      })
+  }
+  
+
+  // async scan()
+  // {
+  //   this.barcodeScanner.scan().then(async (barcodeData) => {
+  //     if(barcodeData.text != '')
+  //     {
+  //       this.addItem('Test', Number(barcodeData.text), 2.99);
+  //       this.addItem('Test', 4367652, 2.97);
+  //     }
+  //   }, async (err)=>{
+  //     const alert = await this.alertController.create({
+  //       header: 'Wystąpił błąd',
+  //       message: JSON.stringify(err),
+  //     });
+  //     await alert.present();
+  //   })
+  // }
 }
