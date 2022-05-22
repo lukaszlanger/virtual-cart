@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "apis1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/virtual-cart-web-api/apis/virtual-cart-web-api",
+      "type": "apis.azure"
+    }
+  }
+}
