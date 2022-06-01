@@ -7,7 +7,7 @@ using virtual_cart_web_api.DataAccess;
 
 namespace virtual_cart_web_api.Migrations
 {
-    [DbContext(typeof(VirtualCartContext))]
+    [DbContext(typeof(VirtualCartDBContext))]
     partial class VirtualCartContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

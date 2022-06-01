@@ -14,9 +14,9 @@ namespace virtual_cart_web_api.Controllers
     [ApiController]
     public class ShoppingListItemsController : ControllerBase
     {
-        private readonly VirtualCartContext _context;
+        private readonly VirtualCartDBContext _context;
 
-        public ShoppingListItemsController(VirtualCartContext context)
+        public ShoppingListItemsController(VirtualCartDBContext context)
         {
             _context = context;
         }
@@ -76,12 +76,19 @@ namespace virtual_cart_web_api.Controllers
         // POST: api/ShoppingListItems
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ShoppingListItem>> PostShoppingListItem(ShoppingListItem shoppingListItem)
+        public async Task<ActionResult<ShoppingListItem>> PostShoppingListItem(ShoppingListItemCreate shoppingListItem)
         {
-            _context.ShoppingListItems.Add(shoppingListItem);
+            var x = new ShoppingListItem
+            {
+                ItemName = shoppingListItem.ItemName,
+                ItemDescription = shoppingListItem.ItemDescription,
+                ItemQuantity = shoppingListItem.ItemQuantity,
+                ItemBought = shoppingListItem.ItemBought
+            };
+            _context.ShoppingListItems.Add(x);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetShoppingListItem", new { id = shoppingListItem.ItemId }, shoppingListItem);
+            return CreatedAtAction("GetShoppingListItem", new { id = x.ItemId }, shoppingListItem);
         }
 
         // DELETE: api/ShoppingListItems/5

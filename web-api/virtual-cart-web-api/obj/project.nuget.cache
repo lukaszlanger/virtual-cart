@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "yviz/utO1Y9bpo6rVydeojuaWQKzVb83fpzS+E+W7zVv7msBPQg1yi4STskW4ayC5ralxdPyZPLjVdqj1dNA3A==",
+  "dgSpecHash": "DwoJSym7cbcBuVIP6vRRZWj7GOaE0IwTLPuarNMbhRSC4/Vkzp31eTU/rS2xEEDwtCy88ftRe8+s7nAFfVzd7g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\lukaszlanger\\GitHub\\virtual-cart-web-api\\virtual-cart-web-api\\virtual-cart-web-api.csproj",
+  "projectFilePath": "C:\\Users\\lukaszlanger\\GitHub\\virtual-cart\\web-api\\virtual-cart-web-api\\virtual-cart-web-api.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\lukaszlanger\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\lukaszlanger\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\lukaszlanger\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\lukaszlanger\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\5.0.15\\microsoft.aspnetcore.jsonpatch.5.0.15.nupkg.sha512",
@@ -68,6 +69,7 @@
     "C:\\Users\\lukaszlanger\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
     "C:\\Users\\lukaszlanger\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
     "C:\\Users\\lukaszlanger\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512",
+    "C:\\Users\\lukaszlanger\\.nuget\\packages\\system.codedom\\4.7.0\\system.codedom.4.7.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.collections.concurrent\\4.3.0\\system.collections.concurrent.4.3.0.nupkg.sha512",
     "C:\\Users\\lukaszlanger\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",

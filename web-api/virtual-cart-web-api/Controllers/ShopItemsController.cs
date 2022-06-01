@@ -14,9 +14,9 @@ namespace virtual_cart_web_api.Controllers
     [ApiController]
     public class ShopItemsController : ControllerBase
     {
-        private readonly VirtualCartContext _context;
+        private readonly VirtualCartDBContext _context;
 
-        public ShopItemsController(VirtualCartContext context)
+        public ShopItemsController(VirtualCartDBContext context)
         {
             _context = context;
         }

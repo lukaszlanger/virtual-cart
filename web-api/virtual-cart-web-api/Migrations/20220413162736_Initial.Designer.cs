@@ -8,7 +8,7 @@ using virtual_cart_web_api.DataAccess;
 
 namespace virtual_cart_web_api.Migrations
 {
-    [DbContext(typeof(VirtualCartContext))]
+    [DbContext(typeof(VirtualCartDBContext))]
     [Migration("20220413162736_Initial")]
     partial class Initial
     {

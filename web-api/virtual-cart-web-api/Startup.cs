@@ -22,7 +22,7 @@ namespace virtual_cart_web_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<VirtualCartContext>(options =>
+            services.AddDbContext<VirtualCartDBContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
