@@ -9,13 +9,13 @@ import { ShopItem } from '../models/shop-item';
 
 export class ShopItemsService {
 
-  readonly apiURL = "http://localhost:5000/api/ShopItems";
+  //readonly apiURL = "http://localhost:5000/api/ShopItems";
+  readonly apiURL = "https://longshinydog20.conveyor.cloud/api/ShopItems";
 
   constructor(private http: HttpClient) { }
 
   getShopItems() {
     return this.http.get(this.apiURL);
-    //this.http.get(this.apiURL).toPromise().then(res => this.items = res as ShopItem[]);
   }
 
   getShopItem(id: number): Observable<ShopItem> {

@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { ShoppingListItemsPage } from '../forms/shopping-list-items/shopping-list-items.page';
+import { ShoppingListItem } from '../models/shopping-list-item';
+import { ShoppingListItemsService } from '../services/shopping-list-items.service';
+import { Injectable } from '@angular/core';
 
 @Component({
   selector: 'app-tab2',
@@ -7,43 +13,47 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  constructor(private shoppingListItemsService: ShoppingListItemsService, private alertController: AlertController, private router: Router) {}
 
-  public name: string;
-
-  public itemsToBuy: {type: string, name: string, description: string, count: number}[] = [
-    {type: 'drink', name: 'Coca Cola', description: 'Napój w butelce', count: 3},
-    {type: 'fastfood', name: 'Pizza Hawajska', description: 'Fast Food', count: 4}
-  ];
-
-  public itemsBought: {type: string, name: string, description: string, count: number}[] = [];
-
-  iBlen = this.itemsBought.length;
-  iTBlen = this.itemsToBuy.length;
-
-  itemBought(type: string, name: string, description: string, count: number) {
-    this.itemsBought.push({type, name, description, count});
-    this.deleteItemToBuy(name);
+  ngOnInit(): void {
+    this.getAllShoppingListItems();
+    //.subscribe((data: ShoppingListItem[]) => this.items = data);
   }
 
-  deleteItemBought(name: string) {
-    this.itemsBought.forEach((value,index)=>{
-      if(value.name==name) this.itemsBought.splice(index,1);
-    })
+  getAllShoppingListItems() {
+    this.shoppingListItemsService.getShoppingListItems().subscribe((data: ShoppingListItem[]) => this.shoppingListItemsService.items = data);
   }
 
-  deleteItemToBuy(name: string) {
-    this.itemsToBuy.forEach((value,index)=>{
-      if(value.name==name) this.itemsToBuy.splice(index,1);
-    })
+  itemBought(item: ShoppingListItem)
+  {
+    item.ItemBought = true;
+    this.shoppingListItemsService.putShoppingListItem(item).subscribe();/*
+      response => {
+        this.getAllShoppingListItems()}
+    );*/
   }
 
-  buyAgain(type: string, name: string, description: string, count: number) {
-    this.itemsToBuy.push({type, name, description, count});
-    this.deleteItemToBuy(name);
+  buyAgain(item: ShoppingListItem)
+  {
+    item.ItemBought = false;
+    this.shoppingListItemsService.putShoppingListItem(item).subscribe();/*
+      response => {
+        this.getAllShoppingListItems()}
+    );*/
   }
 
-  addToBuy(name: string) {
-    this.itemsToBuy.push({type: 'default', name, description: '', count: 1});
+  delete(itemId: number) {
+    this.shoppingListItemsService.deleteShoppingListItem(itemId).subscribe(
+      response => {
+        this.getAllShoppingListItems()}
+    );
+  }
+
+  openForm() {
+    this.router.navigateByUrl('tabs/tab2/form');
+  }
+
+  edit(itemId: number) {
+    this.router.navigateByUrl('tabs/tab2/form/' + itemId);
   }
 }

@@ -15,10 +15,13 @@ export class Tab1Page implements OnInit {
 
   constructor(private barcodeScanner: BarcodeScanner, public alertController: AlertController, private shopItemsService: ShopItemsService, private http: HttpClient) {}
 
-  public items: ShopItem[];
+  items: ShopItem[];
+  item: ShopItem = new ShopItem;
 
   ngOnInit(): void {
+    console.log(this.items);
     this.shopItemsService.getShopItems().subscribe((data: ShopItem[]) => this.items = data);
+    console.log(this.items);
   }
 
   async deleteItem(item: ShopItem) {
@@ -33,7 +36,7 @@ export class Tab1Page implements OnInit {
           id: 'confirm-button',
           handler: () => {
             item.ItemScanned = false;
-            this.shopItemsService.putShopItem(item).subscribe(data => console.log('Item deleted!'));
+            this.shopItemsService.putShopItem(item).subscribe(data => console.log('Item deleted!' + data));
           }
         }, {
           text: 'Nie',
@@ -53,9 +56,16 @@ export class Tab1Page implements OnInit {
     this.shopItemsService.putShopItem(item).subscribe(data => console.log('Item scanned!'));
   }
 
-  getShopItem(id: number)
-  {
-    console.log(this.shopItemsService.getShopItem(id).subscribe());
+  async info(id: number) {
+    var item = this.items.find(i => i.ItemId === id);
+    const alert = await this.alertController.create({
+      header: 'Info',
+      message: 'Produkt: ' + item.ItemName + '\n' +
+              'Producent: ' + item.ItemManufacturer + '\n' +
+              'Kod kreskowy: ' + item.ItemBarcode + '\n' +
+              'Cena: ' + item.ItemPrice
+    });
+    await alert.present();
   }
 
   async scan() {

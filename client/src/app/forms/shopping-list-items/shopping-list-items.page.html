@@ -1,0 +1,49 @@
+<ion-card>
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title>
+        <h2>Lista zakupów</h2>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-card>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Lista zakupów</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div style="height: auto; display: flex; justify-content: center;">
+  <ion-card>
+  <form [formGroup]="formData" (submit)="onSubmit()">
+    <ion-grid>
+      <ion-row color="primary" justify-content-center>
+        <ion-col size-md="100%">
+          <ion-card-header>
+            <ion-card-title *ngIf="item.ItemId != null">Edytuj przedmiot w liście zakupów</ion-card-title>
+            <ion-card-title *ngIf="item.ItemId == null">Dodaj przedmiot do listy zakupów</ion-card-title>
+          </ion-card-header>
+          <div>
+            <ion-item>
+              <ion-input formControlName="_itemName" type="text" required="true" placeholder="Przedmiot" [(ngModel)]="item.ItemName"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input formControlName="_itemDescription" type="text" placeholder="Opis" [(ngModel)]="item.ItemDescription"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input formControlName="_itemQuantity" type="number" min="1" max="10000" [(ngModel)]="item.ItemQuantity"></ion-input>
+            </ion-item>
+          </div>
+          <div padding>
+            <ion-button *ngIf="item.ItemId != null" size="medium" type="submit">Edytuj</ion-button>
+            <ion-button *ngIf="item.ItemId == null" size="medium" type="submit">Dodaj</ion-button>
+            <ion-button color="medium" size="medium" type="button" (click)="btnGoBack()">Anuluj</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-card>
+</div>
+</ion-content>

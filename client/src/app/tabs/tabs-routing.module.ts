@@ -16,6 +16,14 @@ const routes: Routes = [
         loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
       },
       {
+        path: 'tab2/form',
+        loadChildren: () => import('../forms/shopping-list-items/shopping-list-items.module').then(m => m.ShoppingListItemsPageModule)
+      },
+      {
+        path: 'tab2/form/:itemid',
+        loadChildren: () => import('../forms/shopping-list-items/shopping-list-items.module').then(m => m.ShoppingListItemsPageModule)
+      },
+      {
         path: 'tab3',
         loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
       },

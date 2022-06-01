@@ -1,5 +1,5 @@
 <ion-card>
-  <ion-header [translucent]="true">
+  <ion-header>
     <ion-toolbar>
       <ion-title>
         <h2>Wirtualny koszyk</h2>
@@ -8,7 +8,7 @@
   </ion-header>
 </ion-card>
 
-<ion-content [fullscreen]="true">
+<ion-content>
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Koszyk</ion-title>
@@ -22,14 +22,14 @@
   </ion-fab>
 
   <ion-card>
-    <ion-container *ngFor="let i of items">
-      <ion-list *ngIf="i.ItemScanned == true" lines="none">
+    <ion-card-header>
+      <ion-card-title>Zeskanowane przedmioty</ion-card-title>
+    </ion-card-header>
+    <div *ngFor="let i of items">
+      <ion-list *ngIf="i.ItemScanned === true" lines="none">
         <ion-item-sliding>
-          <ion-item >
+          <ion-item>
             <ion-badge slot="start">1x</ion-badge>
-            <!--<ion-avatar slot="start">
-              <img width="50" height="50" src="assets\\icon\\icons8-barcode-48_yellow.png">
-            </ion-avatar>-->
             <ion-icon name="barcode-outline" slot="start"></ion-icon>
             <ion-label>
               <h2>{{i.ItemName}}</h2>
@@ -37,10 +37,9 @@
             </ion-label>
             <ion-note slot="end">{{i.ItemPrice}} zł</ion-note>
           </ion-item>
-          
 
           <ion-item-options side="start">
-            <ion-item-option (click)="getShopItem(i.ItemId)" color="dark">
+            <ion-item-option (click)="info(i.ItemId)" color="dark">
               <ion-icon style="font-size: 20px;" name="information-circle-outline"></ion-icon>
             </ion-item-option>
           </ion-item-options>
@@ -51,6 +50,6 @@
           </ion-item-options>
         </ion-item-sliding>
       </ion-list>
-    </ion-container>
+    </div>
   </ion-card>
 </ion-content>
