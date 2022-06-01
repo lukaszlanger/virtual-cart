@@ -76,12 +76,21 @@ namespace virtual_cart_web_api.Controllers
         // POST: api/ShopItems
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ShopItem>> PostShopItem(ShopItem shopItem)
+        public async Task<ActionResult<ShopItem>> PostShopItem(ShopItemCreate shopItem)
         {
-            _context.ShopItems.Add(shopItem);
+            var x = new ShopItem
+            {
+                ItemBarcode = shopItem.ItemBarcode,
+                ItemName = shopItem.ItemName,
+                ItemManufacturer = shopItem.ItemManufacturer,
+                ItemPrice = shopItem.ItemPrice,
+                ItemScanned = shopItem.ItemScanned
+            };
+
+            _context.ShopItems.Add(x);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetShopItem", new { id = shopItem.ItemId }, shopItem);
+            return CreatedAtAction("GetShopItem", new { id = x.ItemId }, shopItem);
         }
 
         // DELETE: api/ShopItems/5

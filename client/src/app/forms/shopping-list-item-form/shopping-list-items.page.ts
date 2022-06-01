@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { ShoppingListItem } from 'src/app/models/shopping-list-item';
 import { ShoppingListItemsService } from 'src/app/services/shopping-list-items.service';
 
@@ -33,12 +31,8 @@ export class ShoppingListItemsPage implements OnInit {
 
   constructor(private shoppingListItemsService: ShoppingListItemsService, private router: Router, private route: ActivatedRoute, public formBuilder: FormBuilder) {
     this.itemId = Number.parseInt(this.route.snapshot.paramMap.get('itemid'));
-    /*this.formData = this.formBuilder.group({
-      ItemName: [this.item.ItemName, Validators.compose([Validators.required])],
-      ItemDescription: [this.item.ItemDescription],
-      ItemQuantity: [this.item.ItemQuantity, Validators.compose([Validators.required])],
-      ItemBought: [false, Validators.compose([Validators.required])]
-    });*/
+    if(this.itemId > 0)
+      this.getItem(this.itemId);
     this.formData = this.formBuilder.group({
       _itemName: new FormControl(this.item.ItemName, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
       _itemDescription: new FormControl(this.item.ItemDescription),
@@ -47,12 +41,10 @@ export class ShoppingListItemsPage implements OnInit {
   }
 
   ngOnInit() {
-    if(this.itemId > 0)
-      this.getItem(this.itemId);
   }
 
   getItem(itemId: number) {
-    this.shoppingListItemsService.getShoppingListItem(itemId).subscribe(res => {this.item = res});
+    this.shoppingListItemsService.getShoppingListItem(itemId).subscribe(res => this.item = res);
   }
 
   getAllShoppingListItems() {
@@ -60,12 +52,17 @@ export class ShoppingListItemsPage implements OnInit {
   }
 
   onSubmit() {
-    if(this.itemId > 0)
-      this.editItem(this.item);
-    else
-      this.addItem(this.item);
-    this.item = this.cleanItem;
-    this.btnGoBack();
+    if(this.item.ItemName === '')
+      alert("Potrzebuję więcej informacji!");
+    else {
+      if(this.itemId > 0)
+        this.editItem(this.item);
+      else
+        this.addItem(this.item);
+
+      this.item = this.cleanItem;
+      this.btnGoBack();
+    }
   }
 
   addItem(item: ShoppingListItem) {

@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { ShoppingListItemsPage } from '../forms/shopping-list-items/shopping-list-items.page';
 import { ShoppingListItem } from '../models/shopping-list-item';
 import { ShoppingListItemsService } from '../services/shopping-list-items.service';
-import { Injectable } from '@angular/core';
 
 @Component({
   selector: 'app-tab2',
@@ -49,7 +47,7 @@ export class Tab2Page {
     );
   }
 
-  openForm() {
+  add() {
     this.router.navigateByUrl('tabs/tab2/form');
   }
 

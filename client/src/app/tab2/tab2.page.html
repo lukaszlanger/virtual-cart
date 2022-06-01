@@ -15,15 +15,17 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-card>
-    <ion-input placeholder="Dodaj produkt" (click)="openForm()"></ion-input>
-  </ion-card>
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button (click)="add()">
+      <ion-icon name="bag-add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
   <ion-card>
     <ion-card-header>
       <ion-card-title>Do kupienia</ion-card-title>
     </ion-card-header>
-
+    
     <div *ngFor="let i of shoppingListItemsService.items">
     <ion-list *ngIf="i.ItemBought === false && i != null" lines="none">
       <ion-item-sliding>

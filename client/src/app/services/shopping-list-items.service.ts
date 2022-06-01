@@ -35,4 +35,6 @@ export class ShoppingListItemsService {
   deleteShoppingListItem(itemId: number): Observable<ShoppingListItem> {
     return this.http.delete<ShoppingListItem>(this.apiURL + '/' + itemId);
   }
+
+  
 }

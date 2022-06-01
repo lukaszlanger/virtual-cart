@@ -10,6 +10,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { ShopItemsService } from '../services/shop-items.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ShopItemFormPageModule } from '../forms/shop-item-form/shop-item-form.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ExploreContainerComponentModule,
     Tab1PageRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ShopItemFormPageModule
   ],
   declarations: [Tab1Page],
   providers: [

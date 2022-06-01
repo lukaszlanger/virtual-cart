@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { AlertController } from '@ionic/angular';
-import { ValueAccessor } from '@ionic/angular/directives/control-value-accessors/value-accessor';
+import { Observable } from 'rxjs';
 import { ShopItem } from '../models/shop-item';
 import { ShopItemsService } from '../services/shop-items.service';
 
@@ -13,15 +13,12 @@ import { ShopItemsService } from '../services/shop-items.service';
 })
 export class Tab1Page implements OnInit {
 
-  constructor(private barcodeScanner: BarcodeScanner, public alertController: AlertController, private shopItemsService: ShopItemsService, private http: HttpClient) {}
+  constructor(private barcodeScanner: BarcodeScanner, public alertController: AlertController, private shopItemsService: ShopItemsService, private router: Router) {}
 
-  items: ShopItem[];
   item: ShopItem = new ShopItem;
 
   ngOnInit(): void {
-    console.log(this.items);
-    this.shopItemsService.getShopItems().subscribe((data: ShopItem[]) => this.items = data);
-    console.log(this.items);
+    this.shopItemsService.getShopItems().subscribe((data: ShopItem[]) => this.shopItemsService.items = data);
   }
 
   async deleteItem(item: ShopItem) {
@@ -51,13 +48,8 @@ export class Tab1Page implements OnInit {
     await alert.present();
   }
 
-  scanned(item: ShopItem) {
-    item.ItemScanned = true;
-    this.shopItemsService.putShopItem(item).subscribe(data => console.log('Item scanned!'));
-  }
-
   async info(id: number) {
-    var item = this.items.find(i => i.ItemId === id);
+    var item = this.shopItemsService.items.find(i => i.ItemId === id);
     const alert = await this.alertController.create({
       header: 'Info',
       message: 'Produkt: ' + item.ItemName + '\n' +
@@ -68,15 +60,25 @@ export class Tab1Page implements OnInit {
     await alert.present();
   }
 
+  scanned(item: ShopItem) {
+    item.ItemScanned = true;
+    this.shopItemsService.putShopItem(item).subscribe(data => console.log('Item scanned!'));
+  }
+
   async scan() {
     this.barcodeScanner.scan().then(async (barcodeData) => {
       if(barcodeData.text != '')
       {
-        const item = this.items.find(i => i.ItemBarcode == barcodeData.text);
-        if(item)
-          this.scanned(item);
-        else
-          alert("dodaj item");
+        var item = this.shopItemsService.items.find(i => i.ItemBarcode === barcodeData.text);
+        if(item) {
+          if(item.ItemScanned)
+            alert("Ten przedmiot jest już zeskanowany!");
+          else
+            this.scanned(item);
+        }
+        else {
+          this.router.navigateByUrl('tabs/tab1/form/' + barcodeData.text);
+        }
       }
       }, async (err)=>{
         const alert = await this.alertController.create({
@@ -86,22 +88,4 @@ export class Tab1Page implements OnInit {
         await alert.present();
       })
   }
-  
-
-  // async scan()
-  // {
-  //   this.barcodeScanner.scan().then(async (barcodeData) => {
-  //     if(barcodeData.text != '')
-  //     {
-  //       this.addItem('Test', Number(barcodeData.text), 2.99);
-  //       this.addItem('Test', 4367652, 2.97);
-  //     }
-  //   }, async (err)=>{
-  //     const alert = await this.alertController.create({
-  //       header: 'Wystąpił błąd',
-  //       message: JSON.stringify(err),
-  //     });
-  //     await alert.present();
-  //   })
-  // }
 }

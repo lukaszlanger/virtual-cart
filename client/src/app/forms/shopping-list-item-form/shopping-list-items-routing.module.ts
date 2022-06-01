@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { ShoppingListItemsPage } from './shopping-list-items.page';
 
 const routes: Routes = [

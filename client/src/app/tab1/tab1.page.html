@@ -1,5 +1,5 @@
 <ion-card>
-  <ion-header>
+  <ion-header [translucent]="true">
     <ion-toolbar>
       <ion-title>
         <h2>Wirtualny koszyk</h2>
@@ -11,7 +11,7 @@
 <ion-content>
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Koszyk</ion-title>
+      <ion-title size="large">Wirtualny koszyk</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -25,7 +25,7 @@
     <ion-card-header>
       <ion-card-title>Zeskanowane przedmioty</ion-card-title>
     </ion-card-header>
-    <div *ngFor="let i of items">
+    <div *ngFor="let i of shopItemsService.items">
       <ion-list *ngIf="i.ItemScanned === true" lines="none">
         <ion-item-sliding>
           <ion-item>
@@ -33,7 +33,7 @@
             <ion-icon name="barcode-outline" slot="start"></ion-icon>
             <ion-label>
               <h2>{{i.ItemName}}</h2>
-              <p>Producent: {{i.ItemManufacturer}}</p>
+              <p>Marka: {{i.ItemManufacturer}}</p>
             </ion-label>
             <ion-note slot="end">{{i.ItemPrice}} zł</ion-note>
           </ion-item>
@@ -52,4 +52,15 @@
       </ion-list>
     </div>
   </ion-card>
+<!--
+  <ion-card>
+    <ion-item>
+      <ion-icon style="font-size: 20px;" name="wallet-outline" slot="start"></ion-icon>
+      <ion-label>
+        <b>Suma aktualnego koszyka:</b>
+      </ion-label>
+      <ion-badge>{{suma}} zł</ion-badge>
+    </ion-item>
+  </ion-card>
+-->
 </ion-content>

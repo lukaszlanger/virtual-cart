@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { ShoppingListItemsPageRoutingModule } from './shopping-list-items-routing.module';
 
 import { ShoppingListItemsPage } from './shopping-list-items.page';
-import { RouterLink } from '@angular/router';
 
 @NgModule({
   imports: [

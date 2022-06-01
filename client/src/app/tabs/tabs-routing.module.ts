@@ -12,16 +12,20 @@ const routes: Routes = [
         loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
       },
       {
+        path: 'tab1/form/:itembarcode',
+        loadChildren: () => import('../forms/shop-item-form/shop-item-form.module').then(m => m.ShopItemFormPageModule)
+      },
+      {
         path: 'tab2',
         loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
       },
       {
         path: 'tab2/form',
-        loadChildren: () => import('../forms/shopping-list-items/shopping-list-items.module').then(m => m.ShoppingListItemsPageModule)
+        loadChildren: () => import('../forms/shopping-list-item-form/shopping-list-items.module').then(m => m.ShoppingListItemsPageModule)
       },
       {
         path: 'tab2/form/:itemid',
-        loadChildren: () => import('../forms/shopping-list-items/shopping-list-items.module').then(m => m.ShoppingListItemsPageModule)
+        loadChildren: () => import('../forms/shopping-list-item-form/shopping-list-items.module').then(m => m.ShoppingListItemsPageModule)
       },
       {
         path: 'tab3',

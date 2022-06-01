@@ -7,7 +7,7 @@ import { Tab2Page } from './tab2.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { Tab2PageRoutingModule } from './tab2-routing.module';
-import { ShoppingListItemsPageModule } from '../forms/shopping-list-items/shopping-list-items.module';
+import { ShoppingListItemsPageModule } from '../forms/shopping-list-item-form/shopping-list-items.module';
 
 @NgModule({
   imports: [
