@@ -38,7 +38,10 @@ export class ShopItemFormPage implements OnInit {
   }
 
   getAllShopItems() {
-    this.shopItemsService.getShopItems().subscribe((data: ShopItem[]) => this.shopItemsService.items = data);
+    this.shopItemsService.getShopItems().subscribe((data: ShopItem[]) => {
+      this.shopItemsService.items = data;
+      this.sum();
+    })
   }
 
   onSubmit() {
@@ -46,12 +49,24 @@ export class ShopItemFormPage implements OnInit {
       alert("Potrzebne więcej informacji");
     else {
       this.addItem(this.item);
+      this.sum();
       this.btnGoBack();
     }
   }
 
   addItem(item: ShopItem) {
-    this.shopItemsService.postShopItem(item).subscribe(response => {this.getAllShopItems()});
+    this.shopItemsService.postShopItem(item).subscribe(response => {
+      this.getAllShopItems();
+      this.sum();
+    });
+  }
+
+  sum() {
+    this.shopItemsService.summary = 0;
+    this.shopItemsService.items.forEach(element => {
+      if(element.ItemScanned)
+        this.shopItemsService.summary += element.ItemPrice;
+    })
   }
 
   btnGoBack() {

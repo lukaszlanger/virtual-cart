@@ -18,7 +18,20 @@ export class Tab1Page implements OnInit {
   item: ShopItem = new ShopItem;
 
   ngOnInit(): void {
-    this.shopItemsService.getShopItems().subscribe((data: ShopItem[]) => this.shopItemsService.items = data);
+    this.shopItemsService.getShopItems().subscribe((data: ShopItem[]) => 
+    {
+      this.shopItemsService.items = data;
+      this.sum();
+    }
+  )
+  }
+
+  sum() {
+    this.shopItemsService.summary = 0;
+    this.shopItemsService.items.forEach(element => {
+      if(element.ItemScanned)
+        this.shopItemsService.summary += element.ItemPrice;
+    })
   }
 
   async deleteItem(item: ShopItem) {
@@ -33,7 +46,10 @@ export class Tab1Page implements OnInit {
           id: 'confirm-button',
           handler: () => {
             item.ItemScanned = false;
-            this.shopItemsService.putShopItem(item).subscribe(data => console.log('Item deleted!' + data));
+            this.shopItemsService.putShopItem(item).subscribe(data => {
+              console.log('Item deleted!' + data);
+              this.sum();
+            })
           }
         }, {
           text: 'Nie',
@@ -63,6 +79,7 @@ export class Tab1Page implements OnInit {
   scanned(item: ShopItem) {
     item.ItemScanned = true;
     this.shopItemsService.putShopItem(item).subscribe(data => console.log('Item scanned!'));
+    this.sum();
   }
 
   async scan() {
